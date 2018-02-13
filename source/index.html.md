@@ -104,7 +104,7 @@ task = {
 
 参数 |	描述
 --------- | -----------
-music\_id	音乐的唯一id
+music\_id |	音乐的唯一id
 
 ###回传JSON属性
 属性 |	描述
@@ -156,7 +156,7 @@ download\_link |	下载链接
 
 参数 |	描述
 --------- | -----------
-music\_id	音乐的唯一id
+music\_id	| 音乐的唯一id
 
 <aside class="notice">
 也可直接使用音乐状态查询中的下载链接.
