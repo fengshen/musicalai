@@ -1,17 +1,10 @@
-# Errors                                                                                                                                                        
-  
-The musicalai API uses the following error codes:
+#状态码
+系统响应消息总是在第一行返回一个状态码。 成功的请求总是返回状态码200 OK。
+如果由于任何原因请求失败，则返回以下一个或多个状态码：
  
- 
-Error Code | Meaning
+状态码 | 描述
 ---------- | -------
-200| OK
-201| Done
-400| Bad Request
-401| Unauthorized
-404| Not Found
-405| Method Not Allowed
-409| Conflict
-415| Unsupported Media Type
-422| Unprocessable
-429| Too Many Requests
+200 |	OK
+201 |	完成
+400 |	错误的请求
+404| 未找到页面

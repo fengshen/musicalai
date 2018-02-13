@@ -1,5 +1,5 @@
 ---
-title: musicalai API Reference
+title: musical.ai API 参考 
 
 includes:
   - errors
@@ -7,29 +7,36 @@ includes:
 search: true
 ---
 
-# Introduction
+#简介
 
-Welcome to the musicalai API!
+欢迎使用musical.ai API服务。您可以使用本文档介绍的API来生成音乐旋律。
+
+#授权
+在使用前，您需先申请密钥（API Key），同时请阅读并遵守musical.ai使用条款和用户授权许可协议。目前musical.ai API还在测试中，申请试用请发送邮件联系api@musical.ai。
 
 # musicalai API 
 
-Base URL http://54.183.117.137/
+基本URL http://54.183.117.137/
 
-## Retrieve style list(获取歌曲风格列表)
+## 获取歌曲风格列表
 
-This endpoint retrieves all styles supported.
+获取音乐风格列表，包含中英文命名.
 
-### HTTP Request
+### HTTP 请求
 
 `GET /data/style`
 
-### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
+### 回传JSON属性
 
-### Return JSON Format
-see code on the right side.
+属性 | 描述 
+--------- | -------
+style |	风格（英文）
+style\_cn |	风格（中文）
+mood |	情绪（英文）
+mood\_cn |	情绪（中文）
+descriptor |	此风格情绪下的唯一描述符
+右侧代码示例.
 
 ```
     {
@@ -45,24 +52,31 @@ see code on the right side.
     }
 ```
 
-## Compose music (创作歌曲) 
+## 创作音乐
 
-This endpoint compose a new song.
+创作特定风格与情绪的新音乐。
 
 
-### HTTP Request
+###HTTP请求
 
 `POST /compose`
 
-### URL Parameters
-
-Parameter | Description
+###URL参数
+ 
+参数 |	描述
 --------- | -----------
-style | unique style id which is descriptor returned in /data/style request.
-duration | length of the new composed music in seconds. (e.g. 50s)
+style |	音乐创作的风格情绪，通过/data/style来获得其对应的描述符
+duration |	音乐创作的长度，用秒作为单位
 
-### Return JSON Format
-see code on the right side.
+### 回传JSON属性
+属性 |	描述
+--------- | -----------
+id |	创作音乐的唯一id
+style\_id |	风格
+percent |	音乐创作状态的百分比
+done |	创作是否完成。True为完成，False为未完成
+
+右侧代码示例.
 
 ```
 task = {
@@ -78,25 +92,33 @@ task = {
     }
 ```
 
-## Retrieve song information (获取歌曲创作信息). 
+##获取音乐创作信息 
 
-This endpoint retrieve information about a specific song.
+通过音乐id来获取音乐创作状态.
 
-### HTTP Request
+###HTTP请求
 
-`GET /song/<song_id>`
+`GET /song/<music_id>`
 
-### URL Parameters
+###URL参数
 
-Parameter | Description
+参数 |	描述
 --------- | -----------
-song_id | The ID of the song to retrieve. 
+music\_id	音乐的唯一id
 
-### Return JSON content.
-see code on the right.
+###回传JSON属性
+属性 |	描述
+--------- | -----------
+id |	音乐唯一id
+style\_id |	风格情绪的类型
+percent |	音乐创作状态的百分比
+done |	创作是否完成。True为完成，False为未完成
+download\_link |	下载链接
+
+右侧代码示例.
 
 ```
-### Return JSON if song is in process of composing.
+### 创作未完成:
         task = {
         'id': music_id, #unique id for each song
         'style_id':style,
@@ -107,7 +129,7 @@ see code on the right.
 
 
 ```
-### Return JSON if song is done composing.
+### 创作完成:
         "task": {
 
           "done": True,
@@ -123,20 +145,19 @@ see code on the right.
         }
 ```
 
-## Download song (下载歌曲)
-This endpoint downloads a specific song.
+##下载歌曲
+下载特定歌曲.
 
 ### HTTP Request
 
-`GET /download/<song_id>`
+`GET /download/<music_id>`
 
-### URL Parameters
+###URL参数
 
-Parameter | Description
+参数 |	描述
 --------- | -----------
-song_id | The ID of the song to retrieve. 
-
+music\_id	音乐的唯一id
 
 <aside class="notice">
-song_id is the 'id' returned from compose request or you can use the 'download_link' in returned JSON from song information request.
+也可直接使用音乐状态查询中的下载链接.
 </aside>
