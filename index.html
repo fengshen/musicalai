@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>musicalai API Reference</title>
+    <title>musical.ai API 参考</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -216,52 +216,76 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+            <a href="#5ea2e0cde2" class="toc-h1 toc-link" data-title="">简介</a>
+          </li>
+          <li>
+            <a href="#3a6e607f0c" class="toc-h1 toc-link" data-title="">授权</a>
           </li>
           <li>
             <a href="#musicalai-api" class="toc-h1 toc-link" data-title="musicalai-api">musicalai API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#retrieve-style-list" class="toc-h2 toc-link" data-title="retrieve-style-list">Retrieve style list(获取歌曲风格列表)</a>
+                    <a href="#c0f98c7155" class="toc-h2 toc-link" data-title="">获取歌曲风格列表</a>
                   </li>
                   <li>
-                    <a href="#compose-music" class="toc-h2 toc-link" data-title="compose-music">Compose music (创作歌曲)</a>
+                    <a href="#458222e4b6" class="toc-h2 toc-link" data-title="">创作音乐</a>
                   </li>
                   <li>
-                    <a href="#retrieve-song-information" class="toc-h2 toc-link" data-title="retrieve-song-information">Retrieve song information (获取歌曲创作信息).</a>
+                    <a href="#4a6013064e" class="toc-h2 toc-link" data-title="">获取音乐创作信息</a>
                   </li>
                   <li>
-                    <a href="#download-song" class="toc-h2 toc-link" data-title="download-song">Download song (下载歌曲)</a>
+                    <a href="#b23d44542e" class="toc-h2 toc-link" data-title="">下载歌曲</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+            <a href="#2fd51d31a7" class="toc-h1 toc-link" data-title="">状态码</a>
           </li>
       </div>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the musicalai API!</p>
+        <h1 id='5ea2e0cde2'>简介</h1>
+<p>欢迎使用musical.ai API服务。您可以使用本文档介绍的API来生成音乐旋律。</p>
+<h1 id='3a6e607f0c'>授权</h1>
+<p>在使用前，您需先申请密钥（API Key），同时请阅读并遵守musical.ai使用条款和用户授权许可协议。目前musical.ai API还在测试中，申请试用请发送邮件联系api@musical.ai。</p>
 <h1 id='musicalai-api'>musicalai API</h1>
-<p>Base URL http://54.183.117.137/</p>
-<h2 id='retrieve-style-list'>Retrieve style list(获取歌曲风格列表)</h2>
-<p>This endpoint retrieves all styles supported.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<p>基本URL http://54.183.117.137/</p>
+<h2 id='c0f98c7155'>获取歌曲风格列表</h2>
+<p>获取音乐风格列表，包含中英文命名.</p>
+<h3 id='http'>HTTP 请求</h3>
 <p><code>GET /data/style</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='json'>回传JSON属性</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>属性</th>
+<th>描述</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>style</td>
+<td>风格（英文）</td>
+</tr>
+<tr>
+<td>style_cn</td>
+<td>风格（中文）</td>
+</tr>
+<tr>
+<td>mood</td>
+<td>情绪（英文）</td>
+</tr>
+<tr>
+<td>mood_cn</td>
+<td>情绪（中文）</td>
+</tr>
+<tr>
+<td>descriptor</td>
+<td>此风格情绪下的唯一描述符</td>
+</tr>
 </tbody></table>
-<h3 id='return-json-format'>Return JSON Format</h3>
-<p>see code on the right side.</p>
+
+<p>右侧代码示例.</p>
 <pre class="highlight plaintext"><code>    {
       'style': 'Sci-Fi',
 
@@ -273,28 +297,52 @@
 
       'descriptor': 'sciFiCharming'
     }
-</code></pre><h2 id='compose-music'>Compose music (创作歌曲)</h2>
-<p>This endpoint compose a new song.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+</code></pre><h2 id='458222e4b6'>创作音乐</h2>
+<p>创作特定风格与情绪的新音乐。</p>
+<h3 id='http-2'>HTTP请求</h3>
 <p><code>POST /compose</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='url'>URL参数</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>参数</th>
+<th>描述</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>style</td>
-<td>unique style id which is descriptor returned in /data/style request.</td>
+<td>音乐创作的风格情绪，通过/data/style来获得其对应的描述符</td>
 </tr>
 <tr>
 <td>duration</td>
-<td>length of the new composed music in seconds. (e.g. 50s)</td>
+<td>音乐创作的长度，用秒作为单位</td>
 </tr>
 </tbody></table>
-<h3 id='return-json-format-2'>Return JSON Format</h3>
-<p>see code on the right side.</p>
+<h3 id='json-2'>回传JSON属性</h3>
+<table><thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>创作音乐的唯一id</td>
+</tr>
+<tr>
+<td>style_id</td>
+<td>风格</td>
+</tr>
+<tr>
+<td>percent</td>
+<td>音乐创作状态的百分比</td>
+</tr>
+<tr>
+<td>done</td>
+<td>创作是否完成。True为完成，False为未完成</td>
+</tr>
+</tbody></table>
+
+<p>右侧代码示例.</p>
 <pre class="highlight plaintext"><code>task = {
 
         'id': song_id, #unique id for each song
@@ -306,32 +354,58 @@
         'done': False
 
     }
-</code></pre><h2 id='retrieve-song-information'>Retrieve song information (获取歌曲创作信息).</h2>
-<p>This endpoint retrieve information about a specific song.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET /song/&lt;song_id&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+</code></pre><h2 id='4a6013064e'>获取音乐创作信息</h2>
+<p>通过音乐id来获取音乐创作状态.</p>
+<h3 id='http-3'>HTTP请求</h3>
+<p><code>GET /song/&lt;music_id&gt;</code></p>
+<h3 id='url-2'>URL参数</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+</tbody></table>
+
+<p>music_id   音乐的唯一id</p>
+<h3 id='json-3'>回传JSON属性</h3>
+<table><thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>song_id</td>
-<td>The ID of the song to retrieve.</td>
+<td>id</td>
+<td>音乐唯一id</td>
+</tr>
+<tr>
+<td>style_id</td>
+<td>风格情绪的类型</td>
+</tr>
+<tr>
+<td>percent</td>
+<td>音乐创作状态的百分比</td>
+</tr>
+<tr>
+<td>done</td>
+<td>创作是否完成。True为完成，False为未完成</td>
+</tr>
+<tr>
+<td>download_link</td>
+<td>下载链接</td>
 </tr>
 </tbody></table>
-<h3 id='return-json-content'>Return JSON content.</h3>
-<p>see code on the right.</p>
-<pre class="highlight plaintext"><code>### Return JSON if song is in process of composing.
+
+<p>右侧代码示例.</p>
+<pre class="highlight plaintext"><code>### 创作未完成:
         task = {
         'id': music_id, #unique id for each song
         'style_id':style,
         'percent' : '0', #progress of composing song
         'done': False
         }
-</code></pre><pre class="highlight plaintext"><code>### Return JSON if song is done composing.
+</code></pre><pre class="highlight plaintext"><code>### 创作完成:
         "task": {
 
           "done": True,
@@ -345,33 +419,32 @@
           "style_id": "sciFiCyberpunk"
 
         }
-</code></pre><h2 id='download-song'>Download song (下载歌曲)</h2>
-<p>This endpoint downloads a specific song.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET /download/&lt;song_id&gt;</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
+</code></pre><h2 id='b23d44542e'>下载歌曲</h2>
+<p>下载特定歌曲.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET /download/&lt;music_id&gt;</code></p>
+<h3 id='url-3'>URL参数</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>参数</th>
+<th>描述</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>song_id</td>
-<td>The ID of the song to retrieve.</td>
-</tr>
 </tbody></table>
 
+<p>music_id   音乐的唯一id</p>
+
 <aside class="notice">
-song_id is the 'id' returned from compose request or you can use the 'download_link' in returned JSON from song information request.
+也可直接使用音乐状态查询中的下载链接.
 </aside>
-<h1 id='errors'>Errors</h1>
-<p>The musicalai API uses the following error codes:</p>
+<h1 id='2fd51d31a7'>状态码</h1>
+<p>系统响应消息总是在第一行返回一个状态码。 成功的请求总是返回状态码200 OK。
+如果由于任何原因请求失败，则返回以下一个或多个状态码：</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>状态码</th>
+<th>描述</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -380,39 +453,15 @@ song_id is the 'id' returned from compose request or you can use the 'download_l
 </tr>
 <tr>
 <td>201</td>
-<td>Done</td>
+<td>完成</td>
 </tr>
 <tr>
 <td>400</td>
-<td>Bad Request</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized</td>
+<td>错误的请求</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed</td>
-</tr>
-<tr>
-<td>409</td>
-<td>Conflict</td>
-</tr>
-<tr>
-<td>415</td>
-<td>Unsupported Media Type</td>
-</tr>
-<tr>
-<td>422</td>
-<td>Unprocessable</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests</td>
+<td>未找到页面</td>
 </tr>
 </tbody></table>
 
