@@ -244,7 +244,6 @@
       </div>
     </div>
     <div class="page-wrapper">
-      <div class="dark-box"></div>
       <div class="content">
         <h1 id='5ea2e0cde2'>简介</h1>
 <p>欢迎使用musical.ai API服务。您可以使用本文档介绍的API来生成音乐旋律。</p>
@@ -256,6 +255,8 @@
 <p>获取音乐风格列表，包含中英文命名.</p>
 <h3 id='http'>HTTP 请求</h3>
 <p><code>GET /data/style</code></p>
+<h3 id='3da7860013'>请求代码示例.</h3>
+<p>curl -i http://54.183.117.137/data/style?apikey=your_api_key</p>
 <h3 id='json'>回传JSON属性</h3>
 <table><thead>
 <tr>
@@ -284,23 +285,20 @@
 <td>此风格情绪下的唯一描述符</td>
 </tr>
 </tbody></table>
-
-<p>右侧代码示例.</p>
-<pre class="highlight plaintext"><code>    {
-      'style': 'Sci-Fi',
-
-      'style_cn': '科幻',
-
-      'mood': 'Charming',
-
-      'mood_cn': '迷人',
-
-      'descriptor': 'sciFiCharming'
-    }
-</code></pre><h2 id='458222e4b6'>创作音乐</h2>
+<h3 id='674e518666'>代码示例.</h3>
+<p>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;style&#39;: &#39;Sci-Fi&#39;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;style_cn&#39;: &#39;科幻&#39;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;mood&#39;: &#39;Charming&#39;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;mood_cn&#39;: &#39;迷人&#39;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;descriptor&#39;: &#39;sciFiCharming&#39;<br>
+}   </p>
+<h2 id='458222e4b6'>创作音乐</h2>
 <p>创作特定风格与情绪的新音乐。</p>
 <h3 id='http-2'>HTTP请求</h3>
 <p><code>POST /compose</code></p>
+<h3 id='3da7860013-2'>请求代码示例.</h3>
+<p>curl -i -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;style&quot;:&quot;sciFiDark&quot;, &quot;duration&quot;: &quot;50&quot;}&#39; http://54.183.117.137/compose?apikey=your_api_key</p>
 <h3 id='url'>URL参数</h3>
 <table><thead>
 <tr>
@@ -325,7 +323,7 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
+<td>music_id</td>
 <td>创作音乐的唯一id</td>
 </tr>
 <tr>
@@ -341,23 +339,19 @@
 <td>创作是否完成。True为完成，False为未完成</td>
 </tr>
 </tbody></table>
-
-<p>右侧代码示例.</p>
-<pre class="highlight plaintext"><code>task = {
-
-        'id': song_id, #unique id for each song
-
-        'style_id':style,
-
-        'percent' : '0', #progress of composing song
-
-        'done': False
-
-    }
-</code></pre><h2 id='4a6013064e'>获取音乐创作信息</h2>
+<h3 id='674e518666-2'>代码示例.</h3>
+<p>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;done&quot;: false,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;music_id&quot;: &quot;2018-02-25_02:32:33.905653.mp3&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;percent&quot;: &quot;0&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;style_id&quot;: &quot;sciFiDark&quot;<br>
+}   </p>
+<h2 id='4a6013064e'>获取音乐创作信息</h2>
 <p>通过音乐id来获取音乐创作状态.</p>
 <h3 id='http-3'>HTTP请求</h3>
 <p><code>GET /song/&lt;music_id&gt;</code></p>
+<h3 id='3da7860013-3'>请求代码示例.</h3>
+<p>curl -i http://54.183.117.137/song/2018-02-25_03:17:55.841332.mp3?apikey=your_api_key</p>
 <h3 id='url-2'>URL参数</h3>
 <table><thead>
 <tr>
@@ -378,7 +372,7 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
+<td>music_id</td>
 <td>音乐唯一id</td>
 </tr>
 <tr>
@@ -398,33 +392,27 @@
 <td>下载链接</td>
 </tr>
 </tbody></table>
-
-<p>右侧代码示例.</p>
-<pre class="highlight plaintext"><code>### 创作未完成:
-        task = {
-        'id': music_id, #unique id for each song
-        'style_id':style,
-        'percent' : '0', #progress of composing song
-        'done': False
-        }
-</code></pre><pre class="highlight plaintext"><code>### 创作完成:
-        "task": {
-
-          "done": True,
-
-          "download_link": "http://54.183.117.137/download/2018-01-26_17:04:09.232480.mp3",
-
-          "id": "2018-01-26_17:04:09.232480.mp3",
-
-          "percent": "100",
-
-          "style_id": "sciFiCyberpunk"
-
-        }
-</code></pre><h2 id='b23d44542e'>下载歌曲</h2>
+<h3 id='674e518666-3'>代码示例.</h3><h3 id='c2b44e5547'>创作未完成:</h3>
+<p>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;done&quot;: true,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;music_id&quot;: &quot;2018-02-25_03:17:55.841332.mp3&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;percent&quot;: &quot;10&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;style_id&quot;: &quot;sciFiDark&quot;<br>
+}    </p>
+<h3 id='85321f3d74'>创作完成:</h3>
+<p>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;done&quot;: true,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;download_link&quot;: &quot;http://54.183.117.137/download/2018-02-25_03:17:55.841332.mp3&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;music_id&quot;: &quot;2018-02-25_03:17:55.841332.mp3&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;percent&quot;: &quot;100&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;style_id&quot;: &quot;sciFiDark&quot;<br>
+}    </p>
+<h2 id='b23d44542e'>下载歌曲</h2>
 <p>下载特定歌曲.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET /download/&lt;music_id&gt;</code></p>
+<h3 id='3da7860013-4'>请求代码示例.</h3>
+<p>curl -O http://54.183.117.137/download/2018-02-25_03:17:55.841332.mp3?apikey=your_api_key</p>
 <h3 id='url-3'>URL参数</h3>
 <table><thead>
 <tr>
@@ -469,8 +457,6 @@
 </tr>
 </tbody></table>
 
-      </div>
-      <div class="dark-box">
       </div>
     </div>
   </body>
