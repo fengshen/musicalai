@@ -26,6 +26,8 @@ search: true
 
 `GET /data/style`
 
+###请求代码示例.
+curl -i http://54.183.117.137/data/style?apikey=your_api_key
 
 ### 回传JSON属性
 
@@ -36,22 +38,14 @@ style\_cn |	风格（中文）
 mood |	情绪（英文）
 mood\_cn |	情绪（中文）
 descriptor |	此风格情绪下的唯一描述符
-右侧代码示例.
-
-```
-    {
-      'style': 'Sci-Fi',
-
-      'style_cn': '科幻',
-
-      'mood': 'Charming',
-
-      'mood_cn': '迷人',
-
-      'descriptor': 'sciFiCharming'
-    }
-```
-
+###代码示例.
+{   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'style': 'Sci-Fi',    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'style_cn': '科幻',    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mood': 'Charming',    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mood_cn': '迷人',    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'descriptor': 'sciFiCharming'    
+}   
 ## 创作音乐
 
 创作特定风格与情绪的新音乐。
@@ -60,6 +54,9 @@ descriptor |	此风格情绪下的唯一描述符
 ###HTTP请求
 
 `POST /compose`
+
+###请求代码示例.
+curl -i -H "Content-Type: application/json" -X POST -d '{"style":"sciFiDark", "duration": "50"}' http://54.183.117.137/compose?apikey=your_api_key
 
 ###URL参数
  
@@ -71,26 +68,18 @@ duration |	音乐创作的长度，用秒作为单位
 ### 回传JSON属性
 属性 |	描述
 --------- | -----------
-id |	创作音乐的唯一id
+music_id |	创作音乐的唯一id
 style\_id |	风格
 percent |	音乐创作状态的百分比
 done |	创作是否完成。True为完成，False为未完成
 
-右侧代码示例.
-
-```
-task = {
-
-        'id': song_id, #unique id for each song
-
-        'style_id':style,
-
-        'percent' : '0', #progress of composing song
-
-        'done': False
-
-    }
-```
+###代码示例.
+{   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"done": false,     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"music_id": "2018-02-25_02:32:33.905653.mp3",     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percent": "0",    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"style_id": "sciFiDark"   
+}   
 
 ##获取音乐创作信息 
 
@@ -99,6 +88,9 @@ task = {
 ###HTTP请求
 
 `GET /song/<music_id>`
+
+###请求代码示例.
+curl -i http://54.183.117.137/song/2018-02-25_03:17:55.841332.mp3?apikey=your_api_key
 
 ###URL参数
 
@@ -109,41 +101,30 @@ music\_id |	音乐的唯一id
 ###回传JSON属性
 属性 |	描述
 --------- | -----------
-id |	音乐唯一id
+music_id |	音乐唯一id
 style\_id |	风格情绪的类型
 percent |	音乐创作状态的百分比
 done |	创作是否完成。True为完成，False为未完成
 download\_link |	下载链接
 
-右侧代码示例.
+###代码示例.
 
-```
 ### 创作未完成:
-        task = {
-        'id': music_id, #unique id for each song
-        'style_id':style,
-        'percent' : '0', #progress of composing song
-        'done': False
-        }
-```
+{                                                                                                                                                               
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"done": true,     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"music_id": "2018-02-25_03:17:55.841332.mp3",     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percent": "10",    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"style_id": "sciFiDark"     
+}    
 
-
-```
 ### 创作完成:
-        "task": {
-
-          "done": True,
-
-          "download_link": "http://54.183.117.137/download/2018-01-26_17:04:09.232480.mp3",
-
-          "id": "2018-01-26_17:04:09.232480.mp3",
-
-          "percent": "100",
-
-          "style_id": "sciFiCyberpunk"
-
-        }
-```
+{     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"done": true,     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"download_link": "http://54.183.117.137/download/2018-02-25_03:17:55.841332.mp3",     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"music_id": "2018-02-25_03:17:55.841332.mp3",     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percent": "100",    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"style_id": "sciFiDark"     
+}    
 
 ##下载歌曲
 下载特定歌曲.
@@ -151,6 +132,9 @@ download\_link |	下载链接
 ### HTTP Request
 
 `GET /download/<music_id>`
+
+###请求代码示例.
+curl -O http://54.183.117.137/download/2018-02-25_03:17:55.841332.mp3?apikey=your_api_key
 
 ###URL参数
 
