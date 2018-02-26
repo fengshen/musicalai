@@ -236,6 +236,9 @@
                   <li>
                     <a href="#b23d44542e" class="toc-h2 toc-link" data-title="">下载歌曲</a>
                   </li>
+                  <li>
+                    <a href="#a9be7bf730" class="toc-h2 toc-link" data-title="">上传音乐</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -429,6 +432,28 @@
 <aside class="notice">
 也可直接使用音乐状态查询中的下载链接.
 </aside>
+<h2 id='a9be7bf730'>上传音乐</h2>
+<p>上传音乐并生成特定声音效果.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST /upload</code></p>
+<h3 id='3da7860013-5'>请求代码示例.</h3>
+<p>curl --form file=@epic.mp3 http://54.183.117.137/upload?apikey=</p>
+<h3 id='json-4'>回传JSON属性</h3>
+<table><thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>downloadlink</td>
+<td>下载链接</td>
+</tr>
+</tbody></table>
+<h3 id='674e518666-4'>代码示例.</h3>
+<p>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;download_url&quot;: &quot;http://54.183.117.137/download/2018-02-26_19:55:29.917506_epic.mp3&quot;<br>
+}       </p>
 <h1 id='2fd51d31a7'>状态码</h1>
 <p>系统响应消息总是在第一行返回一个状态码。 成功的请求总是返回状态码200 OK。
 如果由于任何原因请求失败，则返回以下一个或多个状态码：</p>
