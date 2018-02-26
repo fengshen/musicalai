@@ -145,3 +145,25 @@ music\_id	| 音乐的唯一id
 <aside class="notice">
 也可直接使用音乐状态查询中的下载链接.
 </aside>
+
+
+##上传音乐
+上传音乐并生成特定声音效果.
+
+### HTTP Request
+
+`POST /upload`
+
+###请求代码示例.
+curl --form file=@epic.mp3 http://54.183.117.137/upload?apikey=
+
+###回传JSON属性
+属性 |	描述
+--------- | -----------
+downloadlink |	下载链接
+
+###代码示例.
+{         
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"download_url": "http://54.183.117.137/download/2018-02-26_19:55:29.917506_epic.mp3"      
+}       
+
