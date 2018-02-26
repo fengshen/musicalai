@@ -160,10 +160,10 @@ curl --form file=@epic.mp3 http://54.183.117.137/upload?apikey=
 ###回传JSON属性
 属性 |	描述
 --------- | -----------
-downloadlink |	下载链接
+download\_url |	下载链接
 
 ###代码示例.
 {         
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"download_url": "http://54.183.117.137/download/2018-02-26_19:55:29.917506_epic.mp3"      
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"download\_url": "http://54.183.117.137/download/2018-02-26\_19:55:29.917506\_epic.mp3"      
 }       
 
